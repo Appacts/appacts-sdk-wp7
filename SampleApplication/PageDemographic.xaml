@@ -1,0 +1,160 @@
+﻿<local:PhoneApplicationPageBase
+    x:Class="SampleApplication.PageDemographic"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="clr-namespace:SampleApplication.App_Base"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Pet App" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="Demographic" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" />
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock Height="73" HorizontalAlignment="Left" Margin="6,6,0,0" Name="textBlock1" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="444">
+               In order for us to improve your experience we would like to ask few anonymous questions:
+            </TextBlock>
+            <TextBlock Height="30" HorizontalAlignment="Left" Margin="6,85,0,0" Name="textBlock2" Text="How old are you?" VerticalAlignment="Top" />
+            <ListBox Height="129" HorizontalAlignment="Left" Margin="0,133,0,0" Name="lstAge" VerticalAlignment="Top" Width="450">
+                <ListBoxItem Content="1" />
+                <ListBoxItem Content="2" />
+                <ListBoxItem Content="3" />
+                <ListBoxItem Content="4" />
+                <ListBoxItem Content="5" />
+                <ListBoxItem Content="6" />
+                <ListBoxItem Content="7" />
+                <ListBoxItem Content="8" />
+                <ListBoxItem Content="9" />
+                <ListBoxItem Content="10" />
+                <ListBoxItem Content="11" />
+                <ListBoxItem Content="12" />
+                <ListBoxItem Content="13" />
+                <ListBoxItem Content="14" />
+                <ListBoxItem Content="15" />
+                <ListBoxItem Content="16" />
+                <ListBoxItem Content="17" />
+                <ListBoxItem Content="18" />
+                <ListBoxItem Content="19" />
+                <ListBoxItem Content="20" />
+                <ListBoxItem Content="21" />
+                <ListBoxItem Content="22" />
+                <ListBoxItem Content="23" />
+                <ListBoxItem Content="24" />
+                <ListBoxItem Content="25" />
+                <ListBoxItem Content="26" />
+                <ListBoxItem Content="27" />
+                <ListBoxItem Content="28" />
+                <ListBoxItem Content="29" />
+                <ListBoxItem Content="30" />
+                <ListBoxItem Content="31" />
+                <ListBoxItem Content="32" />
+                <ListBoxItem Content="33" />
+                <ListBoxItem Content="34" />
+                <ListBoxItem Content="35" />
+                <ListBoxItem Content="36" />
+                <ListBoxItem Content="37" />
+                <ListBoxItem Content="38" />
+                <ListBoxItem Content="39" />
+                <ListBoxItem Content="40" />
+                <ListBoxItem Content="41" />
+                <ListBoxItem Content="42" />
+                <ListBoxItem Content="43" />
+                <ListBoxItem Content="44" />
+                <ListBoxItem Content="45" />
+                <ListBoxItem Content="46" />
+                <ListBoxItem Content="47" />
+                <ListBoxItem Content="48" />
+                <ListBoxItem Content="49" />
+                <ListBoxItem Content="50" />
+                <ListBoxItem Content="51" />
+                <ListBoxItem Content="52" />
+                <ListBoxItem Content="53" />
+                <ListBoxItem Content="54" />
+                <ListBoxItem Content="55" />
+                <ListBoxItem Content="56" />
+                <ListBoxItem Content="57" />
+                <ListBoxItem Content="58" />
+                <ListBoxItem Content="59" />
+                <ListBoxItem Content="60" />
+                <ListBoxItem Content="61" />
+                <ListBoxItem Content="62" />
+                <ListBoxItem Content="63" />
+                <ListBoxItem Content="64" />
+                <ListBoxItem Content="65" />
+                <ListBoxItem Content="66" />
+                <ListBoxItem Content="67" />
+                <ListBoxItem Content="68" />
+                <ListBoxItem Content="69" />
+                <ListBoxItem Content="70" />
+                <ListBoxItem Content="71" />
+                <ListBoxItem Content="72" />
+                <ListBoxItem Content="73" />
+                <ListBoxItem Content="74" />
+                <ListBoxItem Content="75" />
+                <ListBoxItem Content="76" />
+                <ListBoxItem Content="77" />
+                <ListBoxItem Content="78" />
+                <ListBoxItem Content="79" />
+                <ListBoxItem Content="80" />
+                <ListBoxItem Content="81" />
+                <ListBoxItem Content="82" />
+                <ListBoxItem Content="83" />
+                <ListBoxItem Content="84" />
+                <ListBoxItem Content="85" />
+                <ListBoxItem Content="86" />
+                <ListBoxItem Content="87" />
+                <ListBoxItem Content="88" />
+                <ListBoxItem Content="89" />
+                <ListBoxItem Content="90" />
+                <ListBoxItem Content="91" />
+                <ListBoxItem Content="92" />
+                <ListBoxItem Content="93" />
+                <ListBoxItem Content="94" />
+                <ListBoxItem Content="95" />
+                <ListBoxItem Content="96" />
+                <ListBoxItem Content="97" />
+                <ListBoxItem Content="98" />
+                <ListBoxItem Content="99" />
+                <ListBoxItem Content="100" />
+            </ListBox>
+            <TextBlock Height="30" HorizontalAlignment="Left" Margin="6,329,0,0" Name="textBlock3" Text="What's your gender?" VerticalAlignment="Top" />
+            <ListBox Height="74" HorizontalAlignment="Left" Margin="0,365,0,0" Name="lstGender" VerticalAlignment="Top" Width="460" >
+                <ListBoxItem Content="Male" />
+                <ListBoxItem Content="Female" />
+            </ListBox>
+            <Button Content="Next" Height="72" HorizontalAlignment="Left" Margin="290,561,0,0" Name="btnNext" VerticalAlignment="Top" Width="160" Click="btnNext_Click" />
+            <Button Content="Skip" Height="72" HorizontalAlignment="Left" Margin="6,561,0,0" Name="btnSkip" VerticalAlignment="Top" Width="160" Click="btnSkip_Click" />
+        </Grid>
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</local:PhoneApplicationPageBase>

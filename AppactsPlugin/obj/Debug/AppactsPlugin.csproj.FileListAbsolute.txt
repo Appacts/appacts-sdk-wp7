@@ -1,0 +1,5 @@
+C:\Projects\Appacts\Mobile Apps\Wp7\AppactsPlugin\Bin\Debug\AppactsPlugin.dll
+C:\Projects\Appacts\Mobile Apps\Wp7\AppactsPlugin\Bin\Debug\AppactsPlugin.pdb
+C:\Projects\Appacts\Mobile Apps\Wp7\AppactsPlugin\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\Appacts\Mobile Apps\Wp7\AppactsPlugin\obj\Debug\AppactsPlugin.dll
+C:\Projects\Appacts\Mobile Apps\Wp7\AppactsPlugin\obj\Debug\AppactsPlugin.pdb
