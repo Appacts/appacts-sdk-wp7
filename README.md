@@ -1,4 +1,4 @@
-appacts-sdk-wp7
+Integration Examples
 ===============
 
 #Basic Integration#
@@ -80,93 +80,115 @@ void Stop();
     }
 
 
-#Advanced Integration#
-
 ##Methods##
 
 For advanced integration, you can use the following methods:
-      void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
-      void LogEvent(String screenName, String eventName, String data);
-      void LogFeedback(String screenName, RatingType ratingType, String comment) 
-      void ScreenOpen(String screenName);
-      void ScreenClosed(String screenName);
-      void ContentLoading(String screenName, String contentName);   
-      void ContentLoaded(String screenName, String contentName);
-      void SetUserInformation(int age, SexType sexType);
-      boolean IsUserInformationSet();
-      void SetOptStatus(OptStatusType optStatusType);
-      int GetOptStatus();
-      void UploadWhileUsingAsync();
-      void UploadManual();
+
+@@@
+void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
+void LogEvent(String screenName, String eventName, String data);
+void LogFeedback(String screenName, RatingType ratingType, String comment) 
+void ScreenOpen(String screenName);
+void ScreenClosed(String screenName);
+void ContentLoading(String screenName, String contentName);   
+void ContentLoaded(String screenName, String contentName);
+void SetUserInformation(int age, SexType sexType);
+boolean IsUserInformationSet();
+void SetOptStatus(OptStatusType optStatusType);
+int GetOptStatus();
+void UploadWhileUsingAsync();
+void UploadManual();
+@@@
+
 
 ##Getting an instance##
 
 When your application is opened you need to obtain a new instance of IAnalytics. You can do this easily by using AnalyticsSingleton. For example:
 
-Import
+**Import**
 
+@@@
 using AppactsPlugin.Interface;
+@@@
+<br />
 
+**Methods**
 
-Methods
+@@@
+IAnalytics AnalyticsSingleton.GetInstance()
+@@@
+<br />
 
-      IAnalytics AnalyticsSingleton.GetInstance()
+**Sample**
 
+@@@
+IAnalytics iAnalytics = AnalyticsSingleton.GetInstance();
+@@@
 
-Sample
+<br/>
 
-      IAnalytics iAnalytics = AnalyticsSingleton.GetInstance();
+**Optional**
 
+We suggest that you add an abstract  base class  into your application so that you have a common area from where everything derives. For example:
 
-Optional
+@@@
+public abstract class PhoneApplicationPageBase : PhoneApplicationPage
+{
+    #region //Protected Properties
+    protected string PageName { get; set; }
+    #endregion
 
-We suggest that you add an abstract base class into your application so that you have a common area from where everything derives. For example:
+    #region //Constructor
+    public PhoneApplicationPageBase(string pageName)
+    {
+        this.PageName = pageName;
+    } 
+    #endregion
 
-      public abstract class PhoneApplicationPageBase : PhoneApplicationPage
-      {
-          #region //Protected Properties
-          protected string PageName { get; set; }
-          #endregion
-      
-          #region //Constructor
-          public PhoneApplicationPageBase(string pageName)
-          {
-              this.PageName = pageName;
-          } 
-          #endregion
-      
-          #region //Public Methods
-          protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-          {
-              AnalyticsSingleton.GetInstance().ScreenOpen(this.PageName);
-              base.OnNavigatedTo(e);
-          }
-      
-          protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-          {
-              AnalyticsSingleton.GetInstance().ScreenClosed(this.PageName);
-              base.OnNavigatedFrom(e);
-          }
-          #endregion
-      }
+    #region //Public Methods
+    protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+    {
+        AnalyticsSingleton.GetInstance().ScreenOpen(this.PageName);
+        base.OnNavigatedTo(e);
+    }
+
+    protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+    {
+        AnalyticsSingleton.GetInstance().ScreenClosed(this.PageName);
+        base.OnNavigatedFrom(e);
+    }
+    #endregion
+}
+
+@@@
+<br />
+
+http://en.wikipedia.org/wiki/Singleton_pattern used to maintain global state
+http://en.wikipedia.org/wiki/Abstract_type
+http://msdn.microsoft.com/en-us/library/ms228387(v=vs.80).aspx scroll down to “abstract classes”. It shows inheritance model
 
 ##Session Management##
 
 Fantastic thing about Windows Phone 7+ framework is that all of the application life-cycle event handlers can be found in one place. You need to update app.xaml to call relevant methods.
 
-Import
+**Import**
 
-      using AppactsPlugin.Interface;
+@@@
+using AppactsPlugin.Interface;
+@@@
+<br />
 
+**Methods**
 
-Methods
+@@@
+void IAnalytics.Start(System.Reflection.Assembly executingAssembly, String applicationId, String serverUrl)
+void IAnalytics.Stop()
+@@@
+<br />
 
-      void IAnalytics.Start(System.Reflection.Assembly executingAssembly, String applicationId, String serverUrl)
-      void IAnalytics.Stop()
+**Sample - App.xaml**
 
-
-Sample - App.xaml
-
+@@@
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
@@ -202,214 +224,259 @@ Sample - App.xaml
              */
             AppactsPlugin.AnalyticsSingleton.GetInstance().Stop();
         }
-        
-Note: Please make sure that .Start & .Stop is always called from main thread, these two methods need to hook in to network coverage event handler.
+
+@@@
+
+**Note:**  *Please make sure that .Start & .Stop is always called from main thread, these two methods need to hook in to network coverage event handler.*
+
+
 
 ##Opt In or Opt out?##
 
-Every app is different. Your business needs to make a decision about how it wants to deal with its users. You can be really nice and ask your users whether or not they would like to participate in your customer experience improvement program. If they say yes you can use our services and log their experience. Alternatively you can make them opt in automatically by accepting your terms and conditions. Either way here is how you control opt in/ out in the terms and conditions scenario:
+Every app is different. Your business needs to make a decision about how it wants to deal with its users. You can be really nice and ask your users whether or not they would like to participate in your customer experience improvement program. If they say yes you can use our services and log their experience. Alternatively you can make them opt in automatically by accepting your terms and conditions.  Either way here is how you control opt in/ out in the terms and conditions scenario:
 
-Import
+**Import**
 
-      using AppactsPlugin.Data.Model;
-      using AppactsPlugin.Data.Model.Enum;
+@@@
+using AppactsPlugin.Data.Model;
+using AppactsPlugin.Data.Model.Enum;
+@@@
+<br />
+**Methods**
 
+@@@
+int GetOptStatus();
+void SetOptStatus(OptStatusType optStatusType);
 
-Methods
+@@@
+<br />
+**Sample - GetOptStatus**
 
-      int GetOptStatus();
-      void SetOptStatus(OptStatusType optStatusType);
+@@@
+if (AnalyticsSingleton.GetInstance().GetOptStatus() == OptStatusType.None)
+{
+    Deployment.Current.Dispatcher.BeginInvoke(() =>
+    {
+        NavigationService.Navigate(new Uri("/PageTermsAndConditions.xaml?removeBackEntry=true", UriKind.Relative));
+    });
 
+}
 
-Sample - GetOptStatus
+@@@
+<br />
+**Sample - SetOptStatus**
 
-      if (AnalyticsSingleton.GetInstance().GetOptStatus() == OptStatusType.None)
-      {
-          Deployment.Current.Dispatcher.BeginInvoke(() =>
-          {
-              NavigationService.Navigate(new Uri("/PageTermsAndConditions.xaml?removeBackEntry=true", UriKind.Relative));
-          });
-      
-      }
-
-
-Sample - SetOptStatus
-
-      private void btnAgree_Click(object sender, RoutedEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().SetOptStatus(OptStatusType.OptIn);
-          AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Agree");
-          NavigationService.Navigate(new Uri("/PageDemographic.xaml?removeBackEntry=true", UriKind.Relative));
-      }
-
-
+@@@
+private void btnAgree_Click(object sender, RoutedEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().SetOptStatus(OptStatusType.OptIn);
+    AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Agree");
+    NavigationService.Navigate(new Uri("/PageDemographic.xaml?removeBackEntry=true", UriKind.Relative));
+} 
+@@@
+<br />
 ##Demographics##
 
 To improve your app you need to know who is using it, how old they are, what their gender is & where they are from. We have made it easy for you to capture this information:
 
-Import
+**Import**
 
-      using AppactsPlugin.Data.Model.Enum;
-      using AppactsPlugin.Data.Model;
+@@@
+using AppactsPlugin.Data.Model.Enum;
+using AppactsPlugin.Data.Model;
+@@@
+<br />
+**Methods**
 
+@@@
+IsUserInformationSet();
+void SetUserInformation(int age, SexType sexType);
 
-Methods
+@@@
+<br />
+**Sample - IsUserInformationSet**
+@@@
+if (AnalyticsSingleton.GetInstance().IsUserInformationSet())
+{
+    Deployment.Current.Dispatcher.BeginInvoke(() =>
+    {
+        NavigationService.Navigate(new Uri("/PageDog.xaml?removeBackEntry=true", UriKind.Relative));
+    });
 
-      IsUserInformationSet();
-      void SetUserInformation(int age, SexType sexType);
+}
 
+@@@
+<br />
+**Sample - SetUserInformation**
 
-Sample - IsUserInformationSet
+@@@
+try
+{
+    AnalyticsSingleton.GetInstance().SetUserInformation(age, sexType);
+}
+catch (ExceptionDatabaseLayer ex)
+{
+    //TODO: handle the error, db is not working
+}
 
-      if (AnalyticsSingleton.GetInstance().IsUserInformationSet())
-      {
-          Deployment.Current.Dispatcher.BeginInvoke(() =>
-          {
-              NavigationService.Navigate(new Uri("/PageDog.xaml?removeBackEntry=true", UriKind.Relative));
-          });
-      
-      }
+@@@
 
+**Note:** *Our plugin throws exception if it can't save users information. Normally this happens when user’s storage card is not present, it was corrupt, or device is full. As we throw an error you can notify a user that there was an issue or just handle it using in your app as per your business requirements.*
 
-Sample - SetUserInformation
-      try
-      {
-          AnalyticsSingleton.GetInstance().SetUserInformation(age, sexType);
-      }
-      catch (Exception ex)
-      {
-          //TODO: handle the error, db is not working
-      }
-      
-Note: Our plugin throws exception if it can't save users information. Normally this happens when user’s storage card is not present, it was corrupt, or device is full. As we throw an error you can notify a user that there was an issue or just handle it using in your app as per your business requirements.
-
-
+<br />
 ##Logging and uploading your customers experience##
 
-Import
+**Import**
 
-      using AppactsPlugin.Data.Model;
-      using AppactsPlugin.Data.Model.Enum;
+@@@
+using AppactsPlugin.Data.Model;
+using AppactsPlugin.Data.Model.Enum;
+@@@
+<br />
+**Methods**
 
+@@@
+void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
+void LogEvent(String screenName, String eventName, String data);
+void LogFeedback(String screenName, RatingType ratingType, String comment);
+void ScreenOpen(String screenName);
+void ScreenClosed(String screenName);
+void ContentLoading(String screenName, String contentName);   
+void ContentLoaded(String screenName, String contentName);
+void UploadWhileUsingAsync();
+void UploadManual();
 
-Methods
+@@@
+<br />
+**Sample - LogError**
 
-      void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
-      void LogEvent(String screenName, String eventName, String data);
-      void LogFeedback(String screenName, RatingType ratingType, String comment);
-      void ScreenOpen(String screenName);
-      void ScreenClosed(String screenName);
-      void ContentLoading(String screenName, String contentName);   
-      void ContentLoaded(String screenName, String contentName);
-      void UploadWhileUsingAsync();
-      void UploadManual();
+@@@
+try
+{
+    //app will throw exception on purpose
+    this.txtPetName.Text = petNames[new Random().Next(0, 12)];
+}
+catch (Exception ex)
+{
+    AnalyticsSingleton.GetInstance().LogError(this.PageName, "Generate", null, new ExceptionDescriptive(ex));
+}
 
+@@@
+<br/>
+**Sample - LogEvent**
 
-Sample - LogError
+@@@
+private void btnGenerate_Click(object sender, RoutedEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
+}
 
-      try
-      {
-          //app will throw exception on purpose
-          this.txtPetName.Text = petNames[new Random().Next(0, 12)];
-      }
-      catch (Exception ex)
-      {
-          AnalyticsSingleton.GetInstance().LogError(this.PageName, "Generate", null, new ExceptionDescriptive(ex));
-      }
+@@@
+<br/>
+**Sample - LogFeedback**
 
+@@@
+try
+{
+    AnalyticsSingleton.GetInstance().LogFeedback(this.pageNameNavigateFrom, ratingType.Value, this.txtFeedback.Text);
+}
+catch (AppactsPlugin.Data.Model.ExceptionDatabaseLayer)
+{
+    //todo: handle the error
+}
 
-Sample - LogEvent
-
-      private void btnGenerate_Click(object sender, RoutedEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
-      }
-
-
-Sample - LogFeedback
-
-      try
-      {
-          AnalyticsSingleton.GetInstance().LogFeedback(this.pageNameNavigateFrom, ratingType.Value, this.txtFeedback.Text);
-      }
-      catch (AppactsPlugin.Data.Model.ExceptionDatabaseLayer)
-      {
-          //todo: handle the error
-      }
-Note: Our plugin throws exception if it can't save users information. Normally this happens when user’s storage card is not present, it was corrupt, or device is full. As we throw an error you can notify a user that there was an issue or just handle it using in your app as per your business requirements.
-
-
-
-Sample - ScreenOpen & ScreenClosed
-
-      protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().ScreenOpen(this.PageName);
-          base.OnNavigatedTo(e);
-      }
-      
-      protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().ScreenClosed(this.PageName);
-          base.OnNavigatedFrom(e);
-      }
+@@@
 
 
-Note: Screen names need to be unique for each screen. We collect screen names in our plugin so that when Screen Closed is called we can calculate how long the user was on the screen for. You can use ScreenOpen many times but it will only register each unique screen name once.
+**Note:** *Our plugin throws exception if it can't save users information. Normally this happens when user’s storage card is not present, it was corrupt, or device is full. As we throw an error you can notify a user that there was an issue or just handle it using in your app as per your business requirements.*
 
-Sample - ContentLoading & ContentLoaded
+<br />
+**Sample - ScreenOpen & ScreenClosed**
 
-      AnalyticsSingleton.GetInstance().ContentLoading(this.PageName, "Some Content");
-      
-      try
-      {
-          //call your webservice, do some data processing before showing application to the user
-      }
-      catch (Exception ex)
-      {
-          AnalyticsSingleton.GetInstance().LogError(this.PageName, "Loading splash page", null, new ExceptionDescriptive(ex));
-      }
-      
-      AnalyticsSingleton.GetInstance().ContentLoaded(this.PageName, "Some Content");
-      
+@@@
+protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().ScreenOpen(this.PageName);
+    base.OnNavigatedTo(e);
+}
 
-Sample - UploadWhileUsingAsync & UploadManual
+protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().ScreenClosed(this.PageName);
+    base.OnNavigatedFrom(e);
+}
+
+@@@
+<br />
+
+**Note:** *Screen names need to be unique for each screen. We collect screen names in our plugin so that when Screen Closed is called we can calculate how long the user was on the screen for. You can use ScreenOpen many times but it will only register each unique screen name once.*
+<br />
+
+**Sample - ContentLoading & ContentLoaded**
+
+@@@
+AnalyticsSingleton.GetInstance().ContentLoading(this.PageName, "Some Content");
+
+try
+{
+    //call your webservice, do some data processing before showing application to the user
+}
+catch (Exception ex)
+{
+    AnalyticsSingleton.GetInstance().LogError(this.PageName, "Loading splash page", null, new ExceptionDescriptive(ex));
+}
+
+AnalyticsSingleton.GetInstance().ContentLoaded(this.PageName, "Some Content");
+
+@@@
+<br />
+**Sample - UploadWhileUsingAsync & UploadManual**
 
 We have created two methods for two different scenarios:
 
-UploadWhileUsingAsync – use this when you are creating a light application, i.e. utilities, forms, etc.. Using this method we will take care of all data uploading. As soon as the user creates an event we will try and upload this event to our servers and present it to you in your reports. The aim of this approach is to prevent waiting and obtain data straight away. Using this approach is recommended by our team as this will monitor network coverage, event queues and it will do its best to get data to our servers immediately.
+*UploadWhileUsingAsync* – use this when you are creating a light application, i.e. utilities, forms, etc.. Using this method we will take care of all data uploading. As soon as the user creates an event we will try and upload this event to our servers and present it to you in your reports. The aim of this approach is to prevent waiting and obtain data straight away. Using this approach is recommended by our team as this will monitor network coverage, event queues and it will do its best to get data to our servers immediately.
 
-UploadManual – use this when you have a very event heavy application i.e. game. Using this method you will need to raise the upload event manually when you are ready. This is a very light approach and popular among some app makers, however data might not be uploaded to our servers for days/ weeks (depending on the app use) therefore statistics will be delayed.
+*UploadManual* – use this when you have a very event heavy application i.e. game. Using this method you will need to raise the upload event manually when you are ready. This is a very light approach and popular among some app makers, however data might not be uploaded to our servers for days/ weeks (depending on the app use) therefore statistics will be delayed. 
 
-UploadWhileUsingAsync & UploadManual – you could always use both together. You can specify that you want to upload manually and later call UploadWhileUsingAsync. The example below will demonstrate this.
+*UploadWhileUsingAsync & UploadManual* – you could always use both together. You can specify that you want to upload manually and later call UploadWhileUsingAsync. The example below will demonstrate this.
 
-UploadWhileUsingAsync
+**UploadWhileUsingAsync**
 
-      AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.WhileUsingAsync)
-
-
+@@@
+AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.WhileUsingAsync)
+@@@
+<br />
 By specifying Upload Type While Using Async during the initial singleton request, the plugin will automatically start uploading data while a user is using the app.
 
-UploadManual
-
+**UploadManual**
+@@@
 AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.Manual)
+@@@
+<br/>
 
 By specifying Upload Type Manual during the initial singleton request, the plugin will not upload any data. It will just collect it and you will need to manually trigger either “UploadManual” or “UploadWhileUsingAsync” i.e.
 
-      private void btnGenerate_Click(object sender, RoutedEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
-          AnalyticsSingleton.GetInstance().UploadManual();
-      }
+@@@
+private void btnGenerate_Click(object sender, RoutedEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
+    AnalyticsSingleton.GetInstance().UploadManual();
+}
 
+@@@
+<br />
+You have to manually trigger upload if you want an upload to take place at a certain point. As mentioned before it has many draw backs, although it must be used in heavy data collection scenarios. 
 
-You have to manually trigger upload if you want an upload to take place at a certain point. As mentioned before it has many draw backs, although it must be used in heavy data collection scenarios.
+@@@
+private void btnGenerate_Click(object sender, RoutedEventArgs e)
+{
+    AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
+    AnalyticsSingleton.GetInstance().UploadWhileUsingAsync();
+}
 
-      private void btnGenerate_Click(object sender, RoutedEventArgs e)
-      {
-          AnalyticsSingleton.GetInstance().LogEvent(this.PageName, "Generate");
-          AnalyticsSingleton.GetInstance().UploadWhileUsingAsync();
-      }
-
+@@@
+<br />
 
 You can call UploadWhileUsingAsync manually later if you called your singleton with “UploadType.Manual”. This can be useful in different scenarios but this approach should be rarely used.
+
+[**Have a suggestion, comment, or question? Appacts team wants to hear from you!**](http://support.appacts.com/discussion/new)
