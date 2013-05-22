@@ -206,7 +206,7 @@ Fantastic thing about Windows Phone 7+ framework is that all of the application 
         
 Note: Please make sure that .Start & .Stop is always called from main thread, these two methods need to hook in to network coverage event handler.
 
-##Opt In or Opt out?##
+###Opt In or Opt out?###
 
 Every app is different. Your business needs to make a decision about how it wants to deal with its users. You can be really nice and ask your users whether or not they would like to participate in your customer experience improvement program. If they say yes you can use our services and log their experience. Alternatively you can make them opt in automatically by accepting your terms and conditions. Either way here is how you control opt in/ out in the terms and conditions scenario:
 
