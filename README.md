@@ -53,7 +53,7 @@ void Stop();
         }
         
         
-###Page###
+#####Page#####
     public partial class MainPage : PhoneApplicationPage
     {
         // Constructor
@@ -80,9 +80,9 @@ void Stop();
     }
 
 
-#Advanced Integration#
+###Advanced Integration###
 
-##Methods##
+####Methods####
 
 For advanced integration, you can use the following methods:
       void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
@@ -99,26 +99,26 @@ For advanced integration, you can use the following methods:
       void UploadWhileUsingAsync();
       void UploadManual();
 
-##Getting an instance##
+####Getting an instance####
 
 When your application is opened you need to obtain a new instance of IAnalytics. You can do this easily by using AnalyticsSingleton. For example:
 
-Import
+######Import#####
 
 using AppactsPlugin.Interface;
 
 
-Methods
+#####Methods#####
 
       IAnalytics AnalyticsSingleton.GetInstance()
 
 
-Sample
+#####Sample#####
 
       IAnalytics iAnalytics = AnalyticsSingleton.GetInstance();
 
 
-Optional
+#####Optional#####
 
 We suggest that you add an abstract base class into your application so that you have a common area from where everything derives. For example:
 
@@ -150,22 +150,22 @@ We suggest that you add an abstract base class into your application so that you
           #endregion
       }
 
-##Session Management##
+####Session Management####
 
 Fantastic thing about Windows Phone 7+ framework is that all of the application life-cycle event handlers can be found in one place. You need to update app.xaml to call relevant methods.
 
-Import
+#####Import######
 
       using AppactsPlugin.Interface;
 
 
-Methods
+#####Methods#####
 
       void IAnalytics.Start(System.Reflection.Assembly executingAssembly, String applicationId, String serverUrl)
       void IAnalytics.Stop()
 
 
-Sample - App.xaml
+#####Sample - App.xaml#####
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
@@ -209,19 +209,19 @@ Note: Please make sure that .Start & .Stop is always called from main thread, th
 
 Every app is different. Your business needs to make a decision about how it wants to deal with its users. You can be really nice and ask your users whether or not they would like to participate in your customer experience improvement program. If they say yes you can use our services and log their experience. Alternatively you can make them opt in automatically by accepting your terms and conditions. Either way here is how you control opt in/ out in the terms and conditions scenario:
 
-Import
+#####Import#####
 
       using AppactsPlugin.Data.Model;
       using AppactsPlugin.Data.Model.Enum;
 
 
-Methods
+#####Methods#####
 
       int GetOptStatus();
       void SetOptStatus(OptStatusType optStatusType);
 
 
-Sample - GetOptStatus
+#####Sample - GetOptStatus#####
 
       if (AnalyticsSingleton.GetInstance().GetOptStatus() == OptStatusType.None)
       {
@@ -233,7 +233,7 @@ Sample - GetOptStatus
       }
 
 
-Sample - SetOptStatus
+#####Sample - SetOptStatus#####
 
       private void btnAgree_Click(object sender, RoutedEventArgs e)
       {
@@ -243,23 +243,23 @@ Sample - SetOptStatus
       }
 
 
-##Demographics##
+####Demographics####
 
 To improve your app you need to know who is using it, how old they are, what their gender is & where they are from. We have made it easy for you to capture this information:
 
-Import
+#####Import#####
 
       using AppactsPlugin.Data.Model.Enum;
       using AppactsPlugin.Data.Model;
 
 
-Methods
+#####Methods#####
 
       IsUserInformationSet();
       void SetUserInformation(int age, SexType sexType);
 
 
-Sample - IsUserInformationSet
+#####Sample - IsUserInformationSet#####
 
       if (AnalyticsSingleton.GetInstance().IsUserInformationSet())
       {
@@ -271,7 +271,7 @@ Sample - IsUserInformationSet
       }
 
 
-Sample - SetUserInformation
+#####Sample - SetUserInformation#####
       try
       {
           AnalyticsSingleton.GetInstance().SetUserInformation(age, sexType);
@@ -284,15 +284,15 @@ Sample - SetUserInformation
 Note: Our plugin throws exception if it can't save users information. Normally this happens when user’s storage card is not present, it was corrupt, or device is full. As we throw an error you can notify a user that there was an issue or just handle it using in your app as per your business requirements.
 
 
-##Logging and uploading your customers experience##
+####Logging and uploading your customers experience####
 
-Import
+#####Import#####
 
       using AppactsPlugin.Data.Model;
       using AppactsPlugin.Data.Model.Enum;
 
 
-Methods
+#####Methods#####
 
       void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
       void LogEvent(String screenName, String eventName, String data);
@@ -305,7 +305,7 @@ Methods
       void UploadManual();
 
 
-Sample - LogError
+#####Sample - LogError#####
 
       try
       {
@@ -318,7 +318,7 @@ Sample - LogError
       }
 
 
-Sample - LogEvent
+#####Sample - LogEvent#####
 
       private void btnGenerate_Click(object sender, RoutedEventArgs e)
       {
@@ -326,7 +326,7 @@ Sample - LogEvent
       }
 
 
-Sample - LogFeedback
+#####Sample - LogFeedback#####
 
       try
       {
@@ -340,7 +340,7 @@ Note: Our plugin throws exception if it can't save users information. Normally t
 
 
 
-Sample - ScreenOpen & ScreenClosed
+#####Sample - ScreenOpen & ScreenClosed#####
 
       protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
       {
@@ -373,24 +373,24 @@ Sample - ContentLoading & ContentLoaded
       AnalyticsSingleton.GetInstance().ContentLoaded(this.PageName, "Some Content");
       
 
-Sample - UploadWhileUsingAsync & UploadManual
+#####Sample - UploadWhileUsingAsync & UploadManual#####
 
 We have created two methods for two different scenarios:
 
-UploadWhileUsingAsync – use this when you are creating a light application, i.e. utilities, forms, etc.. Using this method we will take care of all data uploading. As soon as the user creates an event we will try and upload this event to our servers and present it to you in your reports. The aim of this approach is to prevent waiting and obtain data straight away. Using this approach is recommended by our team as this will monitor network coverage, event queues and it will do its best to get data to our servers immediately.
+*UploadWhileUsingAsync – use this when you are creating a light application, i.e. utilities, forms, etc.. Using this method we will take care of all data uploading. As soon as the user creates an event we will try and upload this event to our servers and present it to you in your reports. The aim of this approach is to prevent waiting and obtain data straight away. Using this approach is recommended by our team as this will monitor network coverage, event queues and it will do its best to get data to our servers immediately.
 
-UploadManual – use this when you have a very event heavy application i.e. game. Using this method you will need to raise the upload event manually when you are ready. This is a very light approach and popular among some app makers, however data might not be uploaded to our servers for days/ weeks (depending on the app use) therefore statistics will be delayed.
+*UploadManual – use this when you have a very event heavy application i.e. game. Using this method you will need to raise the upload event manually when you are ready. This is a very light approach and popular among some app makers, however data might not be uploaded to our servers for days/ weeks (depending on the app use) therefore statistics will be delayed.
 
-UploadWhileUsingAsync & UploadManual – you could always use both together. You can specify that you want to upload manually and later call UploadWhileUsingAsync. The example below will demonstrate this.
+*UploadWhileUsingAsync & UploadManual – you could always use both together. You can specify that you want to upload manually and later call UploadWhileUsingAsync. The example below will demonstrate this.
 
-UploadWhileUsingAsync
+######UploadWhileUsingAsync######
 
       AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.WhileUsingAsync)
 
 
 By specifying Upload Type While Using Async during the initial singleton request, the plugin will automatically start uploading data while a user is using the app.
 
-UploadManual
+######UploadManual#######
 
 AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.Manual)
 
