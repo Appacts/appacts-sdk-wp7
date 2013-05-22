@@ -80,9 +80,9 @@ void Stop();
     }
 
 
-###Advanced Integration###
+##Advanced Integration##
 
-####Methods####
+###Methods###
 
 For advanced integration, you can use the following methods:
       void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
