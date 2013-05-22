@@ -7,9 +7,9 @@ Integration Examples
 ###Methods###
 For basic integration, you can use the following methods:
 
-void Start(Assembly assembly, String applicationId, String serverUrl);
-void LogEvent(String screenName, String eventName);
-void Stop();
+      void Start(Assembly assembly, String applicationId, String serverUrl);
+      void LogEvent(String screenName, String eventName);
+      void Stop();
 
 
 
@@ -85,6 +85,7 @@ void Stop();
 ###Methods###
 
 For advanced integration, you can use the following methods:
+
       void LogError(String screenName, String eventName, String data, ExceptionDescriptive ex);
       void LogEvent(String screenName, String eventName, String data);
       void LogFeedback(String screenName, RatingType ratingType, String comment) 
@@ -357,7 +358,7 @@ Note: Our plugin throws exception if it can't save users information. Normally t
 
 Note: Screen names need to be unique for each screen. We collect screen names in our plugin so that when Screen Closed is called we can calculate how long the user was on the screen for. You can use ScreenOpen many times but it will only register each unique screen name once.
 
-Sample - ContentLoading & ContentLoaded
+#####Sample - ContentLoading & ContentLoaded#####
 
       AnalyticsSingleton.GetInstance().ContentLoading(this.PageName, "Some Content");
       
@@ -383,14 +384,14 @@ We have created two methods for two different scenarios:
 
 *UploadWhileUsingAsync & UploadManual – you could always use both together. You can specify that you want to upload manually and later call UploadWhileUsingAsync. The example below will demonstrate this.
 
-######UploadWhileUsingAsync######
+#####UploadWhileUsingAsync#####
 
       AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.WhileUsingAsync)
 
 
 By specifying Upload Type While Using Async during the initial singleton request, the plugin will automatically start uploading data while a user is using the app.
 
-######UploadManual#######
+#####UploadManual######
 
 AnalyticsSingleton.GetInstance().Start(System.Reflection.Assembly.GetExecutingAssembly(), "95f33abd-9111-424b-a19b-9982c4e8c36f", "http://yourserver.com/api/", UploadType.Manual)
 
