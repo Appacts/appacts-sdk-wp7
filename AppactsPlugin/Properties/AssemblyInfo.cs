@@ -7,11 +7,11 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AppactsPlugin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Appacts Mobile Analytics Plugin")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Appacts Limited")]
 [assembly: AssemblyProduct("AppactsPlugin")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.9.990.2929")]
-[assembly: AssemblyFileVersion("0.9.990.2929")]
+[assembly: AssemblyVersion("1.1.0.2322")]
+[assembly: AssemblyFileVersion("1.1.0.2322")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
