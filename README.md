@@ -1,6 +1,10 @@
 Integration Examples
 ===============
 
+If you need help referencing binary files check out our Wiki:
+
+https://github.com/Appacts/appacts-sdk-wp7/wiki/Referencing-WP7-SDK
+
 ##Basic Integration##
 
 
